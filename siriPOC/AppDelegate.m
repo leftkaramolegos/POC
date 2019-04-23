@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <Intents/Intents.h>
 
 @interface AppDelegate ()
 
@@ -17,6 +18,9 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    [INPreferences requestSiriAuthorization:^(INSiriAuthorizationStatus status) {
+        NSLog(@"Siri Authorization status...%ld", status);
+    }];
     return YES;
 }
 

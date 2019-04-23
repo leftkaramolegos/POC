@@ -9,38 +9,72 @@
 	<key>INIntentDefinitionSystemVersion</key>
 	<string>18E226</string>
 	<key>INIntentDefinitionToolsBuildVersion</key>
-	<string>10B61</string>
+	<string>10E1001</string>
 	<key>INIntentDefinitionToolsVersion</key>
-	<string>10.1</string>
+	<string>10.2.1</string>
 	<key>INIntents</key>
 	<array>
 		<dict>
 			<key>INIntentCategory</key>
-			<string>generic</string>
+			<string>system</string>
+			<key>INIntentClassName</key>
+			<string>INPayBillIntent</string>
+			<key>INIntentClassPrefix</key>
+			<string>IN</string>
 			<key>INIntentDescription</key>
-			<string>A request to transfer money to contact</string>
+			<string>A request to transfer of money to facilitate payment of a bill</string>
 			<key>INIntentDescriptionID</key>
-			<string>hPN8U2</string>
+			<string>wSrxWM</string>
 			<key>INIntentLastParameterTag</key>
-			<integer>14</integer>
+			<integer>7</integer>
 			<key>INIntentName</key>
-			<string>Transfer</string>
+			<string>PayBill</string>
 			<key>INIntentParameterCombinations</key>
 			<dict>
-				<key>contactStr,amount</key>
+				<key>billPayee</key>
 				<dict>
 					<key>INIntentParameterCombinationIsPrimary</key>
 					<false/>
 					<key>INIntentParameterCombinationSubtitle</key>
 					<string></string>
 					<key>INIntentParameterCombinationSubtitleID</key>
-					<string>PVKRhF</string>
+					<string>ga8pif</string>
+					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
+					<false/>
+					<key>INIntentParameterCombinationTitle</key>
+					<string>Pay bill from ${billPayee}</string>
+					<key>INIntentParameterCombinationTitleID</key>
+					<string>hRt9WK</string>
+				</dict>
+				<key>billPayee,fromAccount</key>
+				<dict>
+					<key>INIntentParameterCombinationIsPrimary</key>
+					<false/>
+					<key>INIntentParameterCombinationSubtitle</key>
+					<string></string>
+					<key>INIntentParameterCombinationSubtitleID</key>
+					<string>XnGaQ7</string>
+					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
+					<false/>
+					<key>INIntentParameterCombinationTitle</key>
+					<string>Pay bill from ${billPayee} using ${fromAccount}</string>
+					<key>INIntentParameterCombinationTitleID</key>
+					<string>rVA8L4</string>
+				</dict>
+				<key>billPayee,fromAccount,transactionAmount</key>
+				<dict>
+					<key>INIntentParameterCombinationIsPrimary</key>
+					<false/>
+					<key>INIntentParameterCombinationSubtitle</key>
+					<string></string>
+					<key>INIntentParameterCombinationSubtitleID</key>
+					<string>Jj1JZY</string>
 					<key>INIntentParameterCombinationSupportsBackgroundExecution</key>
 					<true/>
 					<key>INIntentParameterCombinationTitle</key>
-					<string>Left Send ${amount} ${contactStr}</string>
+					<string>Pay ${transactionAmount} of the bill from ${billPayee} using ${fromAccount}</string>
 					<key>INIntentParameterCombinationTitleID</key>
-					<string>GhkfLL</string>
+					<string>xOk46j</string>
 				</dict>
 			</dict>
 			<key>INIntentParameters</key>
@@ -49,81 +83,97 @@
 					<key>INIntentParameterDisplayPriority</key>
 					<integer>1</integer>
 					<key>INIntentParameterName</key>
-					<string>amount</string>
+					<string>billPayee</string>
 					<key>INIntentParameterSupportsMultipleValues</key>
 					<false/>
 					<key>INIntentParameterTag</key>
-					<integer>13</integer>
+					<integer>1</integer>
 					<key>INIntentParameterType</key>
-					<string>Decimal</string>
+					<string>BillPayee</string>
 				</dict>
 				<dict>
 					<key>INIntentParameterDisplayPriority</key>
 					<integer>2</integer>
 					<key>INIntentParameterName</key>
-					<string>contact</string>
+					<string>fromAccount</string>
 					<key>INIntentParameterSupportsMultipleValues</key>
-					<true/>
+					<false/>
 					<key>INIntentParameterTag</key>
-					<integer>11</integer>
+					<integer>2</integer>
 					<key>INIntentParameterType</key>
-					<string>Person</string>
+					<string>PaymentAccount</string>
 				</dict>
 				<dict>
 					<key>INIntentParameterDisplayPriority</key>
 					<integer>3</integer>
 					<key>INIntentParameterName</key>
-					<string>contactStr</string>
+					<string>transactionAmount</string>
 					<key>INIntentParameterSupportsMultipleValues</key>
 					<false/>
 					<key>INIntentParameterTag</key>
-					<integer>14</integer>
+					<integer>3</integer>
+					<key>INIntentParameterType</key>
+					<string>PaymentAmount</string>
+				</dict>
+				<dict>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>4</integer>
+					<key>INIntentParameterName</key>
+					<string>transactionScheduledDate</string>
+					<key>INIntentParameterSupportsMultipleValues</key>
+					<false/>
+					<key>INIntentParameterTag</key>
+					<integer>4</integer>
+					<key>INIntentParameterType</key>
+					<string>DateComponentsRange</string>
+				</dict>
+				<dict>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>5</integer>
+					<key>INIntentParameterName</key>
+					<string>transactionNote</string>
+					<key>INIntentParameterSupportsMultipleValues</key>
+					<false/>
+					<key>INIntentParameterTag</key>
+					<integer>5</integer>
 					<key>INIntentParameterType</key>
 					<string>String</string>
 				</dict>
+				<dict>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>6</integer>
+					<key>INIntentParameterName</key>
+					<string>billType</string>
+					<key>INIntentParameterSupportsMultipleValues</key>
+					<false/>
+					<key>INIntentParameterTag</key>
+					<integer>6</integer>
+					<key>INIntentParameterType</key>
+					<string>BillType</string>
+				</dict>
+				<dict>
+					<key>INIntentParameterDisplayPriority</key>
+					<integer>7</integer>
+					<key>INIntentParameterName</key>
+					<string>dueDate</string>
+					<key>INIntentParameterSupportsMultipleValues</key>
+					<false/>
+					<key>INIntentParameterTag</key>
+					<integer>7</integer>
+					<key>INIntentParameterType</key>
+					<string>DateComponentsRange</string>
+				</dict>
 			</array>
-			<key>INIntentResponse</key>
-			<dict>
-				<key>INIntentResponseCodes</key>
-				<array>
-					<dict>
-						<key>INIntentResponseCodeFormatString</key>
-						<string>not good</string>
-						<key>INIntentResponseCodeFormatStringID</key>
-						<string>xdOz4h</string>
-						<key>INIntentResponseCodeName</key>
-						<string>failure</string>
-						<key>INIntentResponseCodeSuccess</key>
-						<false/>
-					</dict>
-					<dict>
-						<key>INIntentResponseCodeFormatString</key>
-						<string>ok</string>
-						<key>INIntentResponseCodeFormatStringID</key>
-						<string>L8V729</string>
-						<key>INIntentResponseCodeName</key>
-						<string>success</string>
-						<key>INIntentResponseCodeSuccess</key>
-						<true/>
-					</dict>
-				</array>
-				<key>INIntentResponseLastParameterTag</key>
-				<integer>1</integer>
-				<key>INIntentResponseParameters</key>
-				<array/>
-			</dict>
 			<key>INIntentRestrictions</key>
 			<integer>0</integer>
 			<key>INIntentTitle</key>
-			<string>Do transfer to contacts</string>
+			<string>Pay a bill</string>
 			<key>INIntentTitleID</key>
-			<string>95hKVS</string>
+			<string>rQoAhg</string>
 			<key>INIntentType</key>
-			<string>Custom</string>
+			<string>System</string>
 			<key>INIntentUserConfirmationRequired</key>
-			<false/>
-			<key>INIntentVerb</key>
-			<string>Do</string>
+			<true/>
 		</dict>
 	</array>
 </dict>

@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 #import <Intents/Intents.h>
-#import "TransferIntent.h"
 #import "IntentHandler.h"
 
 @interface ViewController ()
@@ -37,24 +36,20 @@
 - (void)userTriggeredAnAction {
     // Constructor intent and set parameters
     // IMPORTANT: Parameters must match one of the shortcut types that you defined in the intents definition file. Otherwise the donation with fail.
-    TransferIntent* intent = [[TransferIntent alloc] init];
-//    intent.remote = self.remote.ID;
-//    intent.remoteName = self.remote.name;
-//    intent.action = action.name;
-//    intent.actionName = [[action.name stringByReplacingOccurrencesOfString:@"_" withString:@" "] capitalizedString];
-    intent.amount = @(50);
-    intent.contactStr = @"Mom";
-    
-    
-    // Set a suggested phrase (displayed when creating shortcuts)
-    intent.suggestedInvocationPhrase = [NSString stringWithFormat:@"Left send %@ %@", intent.amount, intent.contactStr];
 
-    // Donate the interaction shortcut
+    INSpeakableString* speakStr = [[INSpeakableString new] initWithSpokenPhrase:@"asd"];
+    INBillPayee* bill = [[INBillPayee new] initWithNickname:speakStr number:@"7" organizationName:speakStr];
+    INPaymentAccount* account = [[INPaymentAccount new] initWithNickname:speakStr number:@"7" accountType:INAccountTypeCredit organizationName:speakStr balance:nil secondaryBalance:nil];
+    INCurrencyAmount *currencyAmt = [[INCurrencyAmount alloc] initWithAmount:[NSDecimalNumber decimalNumberWithString:@"100"] currencyCode:@"USD"];
+    INPaymentAmount* paymentAmount = [[INPaymentAmount new] initWithAmountType:INAmountTypeAmountDue amount:currencyAmt];
+    INPayBillIntent* intent = [[INPayBillIntent new] initWithBillPayee:bill fromAccount:account transactionAmount:paymentAmount transactionScheduledDate:nil transactionNote:@"" billType:INBillTypeGas dueDate:nil];
+    
+//
+//    // Donate the interaction shortcut
     INInteraction* interaction = [[INInteraction alloc] initWithIntent:intent response:nil];
-//    [interaction initWithIntent:intent response:<#(nullable INIntentResponse *)#>
     [interaction donateInteractionWithCompletion:^(NSError * _Nullable error)
      {
-//         [IntentHandler intent]
+         [[IntentHandler new] publicHandle];
          if (error)
          {
              NSLog(@"Failed to donate interaction: %@ ", [error localizedDescription] );
